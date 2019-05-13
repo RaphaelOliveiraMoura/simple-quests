@@ -17,11 +17,14 @@ function fecthAndGetDataInformationAboutGrades(grades){
 }
 
 function sanitizeArrayOfgradleInformation(gradesInformation){
-    const sanitizedInformations = gradesInformation.filter(function(item, index, self) {
-        console.log(`Comparing ${self.indexOf(item)} with ${item.value}`); 
-        return self.indexOf(item) == index;
+    /**
+     * For each item (grades informations), get all items that has the same values and with biggests index
+     * And after the function filter just return a value if the item has the last index with that value
+     */
+    return gradesInformation.filter((informationItem, index, self)=>{
+        const itemOcurred = self.filter((item)=>informationItem.value == item.value && informationItem.index <= item.index);
+        return itemOcurred.length === 1;
     })
-    return sanitizedInformations;
 }
 
 function getTheValueMostFrequentInInformationGrade(gradesInformation){
